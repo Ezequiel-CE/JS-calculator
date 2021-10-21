@@ -39,7 +39,6 @@ let labelContent = "";
 
 const addToScreen = (e) => {
   num = e.target.textContent;
-  console.log(labelContent);
 
   labelContent += num;
 
@@ -63,6 +62,7 @@ const btnSubstract = document.querySelector(".btn-sub");
 const btnMulti = document.querySelector(".btn-multi");
 const btnDivide = document.querySelector(".btn-divide");
 const btnClear = document.querySelector(".btn-clear");
+const btnDelete = document.querySelector(".btn-delete");
 
 //apretar una operacion
 
@@ -76,7 +76,6 @@ const pressOperation = (operator) => {
   value1 = parseFloat(displayCurrent.textContent);
   operation = operator;
   labelContent = "";
-  console.log(operation);
 };
 
 //result
@@ -118,17 +117,26 @@ const pressEqual = () => {
   labelContent = result.toString().substring(0, 15);
 };
 
+//resetea
 const pressClear = () => {
   value1 = 0;
   operation = "";
   labelContent = "";
   displayCurrent.textContent = "0";
 };
+
+//agrega decimal
 const addDecimal = () => {
   if (!labelContent.includes(".")) {
     labelContent += ".";
     displayCurrent.textContent = labelContent;
   }
+};
+
+//borra un digito
+const deleteOne = () => {
+  labelContent = labelContent.slice(0, -1);
+  displayCurrent.textContent = labelContent;
 };
 
 //uso una callback anonima para poder llamar a otra con argumentos
@@ -140,3 +148,4 @@ btnDivide.addEventListener("click", () => pressOperation("/"));
 btnEqual.addEventListener("click", pressEqual);
 btnClear.addEventListener("click", pressClear);
 btnDecimal.addEventListener("click", addDecimal);
+btnDelete.addEventListener("click", deleteOne);

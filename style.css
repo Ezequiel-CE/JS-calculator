@@ -7,8 +7,21 @@
 body {
   height: 100vh;
   font-family: "Orbitron", sans-serif;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
-
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 .title {
   text-align: center;
   padding-top: 50px;
@@ -21,13 +34,16 @@ body {
 }
 
 .calculator {
-  padding: 10px;
-  background-color: gray;
+  padding: 15px;
+  background-color: rgba(156, 154, 154, 0.973);
   border-radius: 10px;
+  border: 1px solid black;
 }
 
 .calculator-screen {
   background-color: lightgrey;
+  border: 1px solid black;
+
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -49,9 +65,10 @@ body {
 
 .calculator-buttons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 70px);
   grid-template-rows: repeat(4);
-  gap: 5px;
+  gap: 10px;
+  justify-content: space-evenly;
 }
 
 .btn-big {
@@ -61,4 +78,23 @@ body {
 .calculator-btn {
   display: inline-block;
   height: 40px;
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.calculator-btn:active {
+  background-color: gray;
+}
+
+.btn-num:focus {
+  background-color: gray;
+}
+
+.btn-clear {
+  background-color: lightcoral;
+}
+
+.btn-delete {
+  background-color: rgb(173, 188, 230);
 }
