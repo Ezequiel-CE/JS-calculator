@@ -27,14 +27,23 @@ const operate = (operator, value1, value2) => {
   if (operator === "/") return divide(value1, value2);
 };
 
+//agrega pantalla
+
+//elementos
+
 const btnNumbers = document.querySelectorAll(".btn-num");
 const displayCurrent = document.querySelector(".calculator-current-operation");
+const btnDecimal = document.querySelector(".btn-decimal");
 
 let labelContent = "";
 
 const addToScreen = (e) => {
   num = e.target.textContent;
+  console.log(labelContent);
+
   labelContent += num;
+
+  //sublstring evita que pasen el display
   displayCurrent.textContent = labelContent.substring(0, 15);
 };
 
@@ -53,6 +62,7 @@ const btnEqual = document.querySelector(".btn-result");
 const btnSubstract = document.querySelector(".btn-sub");
 const btnMulti = document.querySelector(".btn-multi");
 const btnDivide = document.querySelector(".btn-divide");
+const btnClear = document.querySelector(".btn-clear");
 
 //apretar una operacion
 
@@ -63,7 +73,7 @@ const pressOperation = (operator) => {
   }
 
   //guarda el valor ,da la operacion y setea el label para escribir un nuevo numeor
-  value1 = parseInt(displayCurrent.textContent);
+  value1 = parseFloat(displayCurrent.textContent);
   operation = operator;
   labelContent = "";
   console.log(operation);
@@ -73,22 +83,23 @@ const pressOperation = (operator) => {
 
 const pressEqual = () => {
   //guara el numero actual en el display para usarlo como valor 2
-  const currentNum = parseInt(displayCurrent.textContent);
+  const currentNum = parseFloat(displayCurrent.textContent);
+  let result = 0;
 
   //verifica que opercaion hay actualmente
   if (operation === "+") {
-    const sum = operate("+", value1, currentNum);
-    displayCurrent.textContent = sum;
+    result = operate("+", value1, currentNum);
+    displayCurrent.textContent = result.toString();
     operation = "";
   }
   if (operation === "-") {
-    const sub = operate("-", value1, currentNum);
-    displayCurrent.textContent = sub;
+    result = operate("-", value1, currentNum);
+    displayCurrent.textContent = result.toString();
     operation = "";
   }
   if (operation === "*") {
-    const multi = operate("*", value1, currentNum);
-    displayCurrent.textContent = multi;
+    result = operate("*", value1, currentNum);
+    displayCurrent.textContent = result.toString();
     operation = "";
   }
   if (operation === "/") {
@@ -99,9 +110,24 @@ const pressEqual = () => {
       labelContent = "";
       return;
     }
-    const divi = operate("/", value1, currentNum).toString();
-    displayCurrent.textContent = divi.substring(0, 15);
+    result = operate("/", value1, currentNum).toString();
+    displayCurrent.textContent = result.toString().substring(0, 15);
     operation = "";
+  }
+  value1 = result;
+  labelContent = result.toString().substring(0, 15);
+};
+
+const pressClear = () => {
+  value1 = 0;
+  operation = "";
+  labelContent = "";
+  displayCurrent.textContent = "0";
+};
+const addDecimal = () => {
+  if (!labelContent.includes(".")) {
+    labelContent += ".";
+    displayCurrent.textContent = labelContent;
   }
 };
 
@@ -112,3 +138,5 @@ btnSubstract.addEventListener("click", () => pressOperation("-"));
 btnMulti.addEventListener("click", () => pressOperation("*"));
 btnDivide.addEventListener("click", () => pressOperation("/"));
 btnEqual.addEventListener("click", pressEqual);
+btnClear.addEventListener("click", pressClear);
+btnDecimal.addEventListener("click", addDecimal);
